@@ -34,6 +34,37 @@ class ListVC: UIViewController {
     
     //MARK:- Data Storage
     func saveDefaultsData() {
+        mealsArray.sort {
+            if $0.date != $1.date {
+                return $0.date > $1.date
+            } else {
+                var typeA: Int
+                switch $0.type {
+                case "Breakfast":
+                    typeA = 0
+                case "Lunch":
+                    typeA = 1
+                case "Dinner":
+                    typeA = 2
+                default: // Other
+                    typeA = 3
+                }
+        
+                var typeB: Int
+                switch $1.type {
+                case "Breakfast":
+                    typeB = 0
+                case "Lunch":
+                    typeB = 1
+                case "Dinner":
+                    typeB = 2
+                default: // Other
+                    typeB = 3
+                }
+        
+                return typeA > typeB
+            }
+        }
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(mealsArray) {
             defaultsData.set(encoded, forKey: "mealsArray")
@@ -46,6 +77,37 @@ class ListVC: UIViewController {
             let decoder = JSONDecoder()
             if let loadedArray = try? decoder.decode([MealInfo].self, from: savedArray) {
                 mealsArray = loadedArray
+            }
+        }
+        mealsArray.sort {
+            if $0.date != $1.date {
+                return $0.date > $1.date
+            } else {
+                var typeA: Int
+                switch $0.type {
+                case "Breakfast":
+                    typeA = 0
+                case "Lunch":
+                    typeA = 1
+                case "Dinner":
+                    typeA = 2
+                default: // Other
+                    typeA = 3
+                }
+                
+                var typeB: Int
+                switch $1.type {
+                case "Breakfast":
+                    typeB = 0
+                case "Lunch":
+                    typeB = 1
+                case "Dinner":
+                    typeB = 2
+                default: // Other
+                    typeB = 3
+                }
+                
+                return typeA > typeB
             }
         }
     }
