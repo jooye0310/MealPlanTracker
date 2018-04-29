@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailVC: UIViewController {
+class DetailVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateTextField: UITextField!
@@ -16,7 +16,6 @@ class DetailVC: UIViewController {
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    
     
     var mealDate: String?
     var mealType: String?
@@ -35,6 +34,8 @@ class DetailVC: UIViewController {
         
         typePicker.dataSource = self
         typePicker.delegate = self
+        
+        amountTextField.delegate = self
         
         if let mealDate = mealDate { // Editing existing item
             dateTextField.text = mealDate
@@ -56,6 +57,7 @@ class DetailVC: UIViewController {
         }
     }
     
+    //MARK:- Text field functions
     func setupTextField(textFieldType type: String) {
         // toolbar
         let toolbar = UIToolbar()
@@ -66,13 +68,11 @@ class DetailVC: UIViewController {
         switch type {
         case "Date":
             doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(dateDonePressed))
-            toolbar.setItems([doneButton], animated: false)
             datePicker.datePickerMode = .date
             currentTextField = dateTextField
             currentTextField.inputView = datePicker
         case "Type":
             doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(typeDonePressed))
-            toolbar.setItems([doneButton], animated: false)
             currentTextField = typeTextField
             currentTextField.inputView = typePicker
         default: // Amount
@@ -102,6 +102,22 @@ class DetailVC: UIViewController {
         self.view.endEditing(true)
     }
     
+    // limits the textField input to two decimals
+    func textField(_ textField: UITextField, shouldChangeCharactersIn   range: NSRange, replacementString string: String) -> Bool {
+        let digitBeforeDecimal = 3
+        let digitAfterDecimal = 2
+        let computationString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        let arrayOfSubStrings = computationString.components(separatedBy: ".")
+        if arrayOfSubStrings.count == 1 && computationString.count > digitBeforeDecimal {//
+            return false
+        } else if arrayOfSubStrings.count == 2 {
+            let stringPostDecimal = arrayOfSubStrings[1]
+            return stringPostDecimal.count <= digitAfterDecimal
+        }
+        return true
+    }
+    
+    //MARK:- Button functions
     func enableDisableSaveButton() {
         if let dateTextFieldCount = dateTextField.text?.count, dateTextFieldCount > 0 {
             saveButton.isEnabled = true
