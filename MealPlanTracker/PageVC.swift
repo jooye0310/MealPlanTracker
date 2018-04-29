@@ -11,7 +11,7 @@ import UIKit
 class PageVC: UIPageViewController {
     
     var currentPage = 1
-    var datesArray = ["Pizza", "Pasta", "Sushi", "Ramen"]
+    var mealsArray = [MealInfo]()
     var pageControl: UIPageControl!
     var barButtonWidth: CGFloat = 44
     var barButtonHeight: CGFloat = 44
@@ -48,7 +48,7 @@ class PageVC: UIPageViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToListVC" {
             let destination = segue.destination as! ListVC
-            destination.datesArray = datesArray
+            destination.mealsArray = mealsArray
             destination.currentPage = currentPage
         }
     }

@@ -17,9 +17,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
-    var mealDate: String?
-    var mealType: String?
-    var mealAmount: Double?
+    var mealInfo: MealInfo?
     let datePicker = UIDatePicker()
     let typePicker = UIPickerView()
     var typeArray = ["Breakfast", "Lunch", "Dinner", "Other"]
@@ -28,23 +26,23 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTextField(textFieldType: "Date")
-        setupTextField(textFieldType: "Type")
-        setupTextField(textFieldType: "Amount")
+        // setup text fields
+        setupDateTextField()
         
         typePicker.dataSource = self
         typePicker.delegate = self
+        setupTypeTextField()
         
         amountTextField.delegate = self
+        setupAmountTextField()
         
-        if let mealDate = mealDate { // Editing existing item
-            dateTextField.text = mealDate
+        if let mealInfo = mealInfo { // Editing existing item
             titleLabel.text = "Edit Meal"
+            dateTextField.text = mealInfo.date
+            typeTextField.text = mealInfo.type
+            amountTextField.text = String(mealInfo.amount)
         } else { // Creating new item
             titleLabel.text = "New Meal"
-        }
-        if let mealType = mealType {
-            typeTextField.text = mealType
         }
         enableDisableSaveButton()
         dateTextField.becomeFirstResponder()
@@ -52,35 +50,37 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "UnwindFromSave" {
-            mealDate = dateTextField.text
-            mealType = typeTextField.text
+            mealInfo = MealInfo(date: dateTextField.text!, type: typeTextField.text!, amount: Double(amountTextField.text!)!)
         }
     }
     
     //MARK:- Text field functions
-    func setupTextField(textFieldType type: String) {
+    func setupDateTextField() {
         // toolbar
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        
-        var doneButton = UIBarButtonItem()
-        var currentTextField = UITextField()
-        switch type {
-        case "Date":
-            doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(dateDonePressed))
-            datePicker.datePickerMode = .date
-            currentTextField = dateTextField
-            currentTextField.inputView = datePicker
-        case "Type":
-            doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(typeDonePressed))
-            currentTextField = typeTextField
-            currentTextField.inputView = typePicker
-        default: // Amount
-            doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(amountDonePressed))
-            currentTextField = amountTextField
-        }
-        toolbar.setItems([doneButton], animated: false)
-        currentTextField.inputAccessoryView = toolbar
+        let dateToolbar = UIToolbar()
+        dateToolbar.sizeToFit()
+        let dateDoneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(dateDonePressed))
+        datePicker.datePickerMode = .date
+        dateTextField.inputView = datePicker
+        dateToolbar.setItems([dateDoneButton], animated: false)
+        dateTextField.inputAccessoryView = dateToolbar
+    }
+    
+    func setupTypeTextField() {
+        let typeToolbar = UIToolbar()
+        typeToolbar.sizeToFit()
+        let typeDoneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(typeDonePressed))
+        typeTextField.inputView = typePicker
+        typeToolbar.setItems([typeDoneButton], animated: false)
+        typeTextField.inputAccessoryView = typeToolbar
+    }
+    
+    func setupAmountTextField() {
+        let amountToolbar = UIToolbar()
+        amountToolbar.sizeToFit()
+        let amountDoneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(amountDonePressed))
+        amountToolbar.setItems([amountDoneButton], animated: false)
+        amountTextField.inputAccessoryView = amountToolbar
     }
     
     @objc func dateDonePressed() {

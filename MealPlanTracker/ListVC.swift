@@ -15,8 +15,7 @@ class ListVC: UIViewController {
     @IBOutlet weak var editButton: UIButton!
     
     var currentPage = 2
-    var datesArray = [String]()
-    var typesArray = [String]()
+    var mealsArray = [MealInfo]()
     var defaultsData = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -24,8 +23,7 @@ class ListVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        datesArray = defaultsData.stringArray(forKey: "datesArray") ?? [String]()
-        typesArray = defaultsData.stringArray(forKey: "typesArray") ?? [String]()
+        loadDefaultsData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -36,8 +34,20 @@ class ListVC: UIViewController {
     
     //MARK:- Data Storage
     func saveDefaultsData() {
-        defaultsData.set(datesArray, forKey: "datesArray")
-        defaultsData.set(typesArray, forKey: "typesArray")
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(mealsArray) {
+            defaultsData.set(encoded, forKey: "mealsArray")
+        }
+        //defaultsData.set(mealsArray, forKey: "mealsArray")
+    }
+    
+    func loadDefaultsData() {
+        if let savedArray = defaultsData.object(forKey: "mealsArray") as? Data {
+            let decoder = JSONDecoder()
+            if let loadedArray = try? decoder.decode([MealInfo].self, from: savedArray) {
+                mealsArray = loadedArray
+            }
+        }
     }
     
     //MARK:- Segues
@@ -49,8 +59,7 @@ class ListVC: UIViewController {
         if segue.identifier == "EditItem" {
             let destination = segue.destination as! DetailVC
             let index = tableView.indexPathForSelectedRow!.row
-            destination.mealDate = datesArray[index]
-            destination.mealType = typesArray[index]
+            destination.mealInfo = mealsArray[index]
         } else {
             if let selectedPath = tableView.indexPathForSelectedRow {
                 tableView.deselectRow(at: selectedPath, animated: false)
@@ -61,13 +70,11 @@ class ListVC: UIViewController {
     @IBAction func unwindFromDetailViewController(segue: UIStoryboardSegue) {
         let sourceViewController = segue.source as! DetailVC
         if let indexPath = tableView.indexPathForSelectedRow {
-            datesArray[indexPath.row] = sourceViewController.mealDate!
-            typesArray[indexPath.row] = sourceViewController.mealType!
+            mealsArray[indexPath.row] = sourceViewController.mealInfo!
             tableView.reloadRows(at: [indexPath], with: .automatic)
         } else {
-            let newIndexPath = IndexPath(row: datesArray.count, section: 0)
-            datesArray.append(sourceViewController.mealDate!)
-            typesArray.append(sourceViewController.mealType!)
+            let newIndexPath = IndexPath(row: mealsArray.count, section: 0)
+            mealsArray.append(sourceViewController.mealInfo!)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
         saveDefaultsData()
@@ -89,32 +96,28 @@ class ListVC: UIViewController {
 extension ListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datesArray.count
+        return mealsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = datesArray[indexPath.row]
-        cell.detailTextLabel?.text = typesArray[indexPath.row]
+        cell.textLabel?.text = mealsArray[indexPath.row].date
+        cell.detailTextLabel?.text = "\(mealsArray[indexPath.row].type): $\(mealsArray[indexPath.row].amount)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) { // Delete case
         if editingStyle == .delete {
-            datesArray.remove(at: indexPath.row)
-            typesArray.remove(at: indexPath.row)
+            mealsArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             saveDefaultsData()
         }
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) { // Move case
-        let itemToMove = datesArray[sourceIndexPath.row]
-        let noteToMove = typesArray[sourceIndexPath.row]
-        datesArray.remove(at: sourceIndexPath.row)
-        typesArray.remove(at: sourceIndexPath.row)
-        datesArray.insert(itemToMove, at: destinationIndexPath.row)
-        typesArray.insert(noteToMove, at: destinationIndexPath.row)
+        let itemToMove = mealsArray[sourceIndexPath.row]
+        mealsArray.remove(at: sourceIndexPath.row)
+        mealsArray.insert(itemToMove, at: destinationIndexPath.row)
         saveDefaultsData()
     }
 }
