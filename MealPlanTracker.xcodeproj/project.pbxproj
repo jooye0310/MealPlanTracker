@@ -16,6 +16,7 @@
 		7919D10E20955F880033A799 /* GraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919D10D20955F880033A799 /* GraphVC.swift */; };
 		796F334A20976B3F00829F24 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796F334720976B0800829F24 /* Charts.framework */; };
 		796F334B20976B3F00829F24 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 796F334720976B0800829F24 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		796F335820977DE500829F24 /* DayAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796F335720977DE500829F24 /* DayAxisValueFormatter.swift */; };
 		79D5C29F2095BA0E007F83F4 /* MealInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5C29E2095BA0E007F83F4 /* MealInfo.swift */; };
 		79D84E8C209526C9002591A1 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D84E8B209526C9002591A1 /* DetailVC.swift */; };
 		79D84E8E209529DA002591A1 /* PageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D84E8D209529DA002591A1 /* PageVC.swift */; };
@@ -70,6 +71,7 @@
 		7919D10B20952B280033A799 /* SummaryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryVC.swift; sourceTree = "<group>"; };
 		7919D10D20955F880033A799 /* GraphVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphVC.swift; sourceTree = "<group>"; };
 		796F334120976B0800829F24 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = SOURCE_ROOT; };
+		796F335720977DE500829F24 /* DayAxisValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayAxisValueFormatter.swift; sourceTree = "<group>"; };
 		79D5C29E2095BA0E007F83F4 /* MealInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealInfo.swift; sourceTree = "<group>"; };
 		79D84E8B209526C9002591A1 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		79D84E8D209529DA002591A1 /* PageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageVC.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				791995862095255700C127C1 /* AppDelegate.swift */,
 				79D5C29E2095BA0E007F83F4 /* MealInfo.swift */,
 				79D84E8D209529DA002591A1 /* PageVC.swift */,
+				796F335720977DE500829F24 /* DayAxisValueFormatter.swift */,
 				7919D10D20955F880033A799 /* GraphVC.swift */,
 				7919D10B20952B280033A799 /* SummaryVC.swift */,
 				7919959A209525DD00C127C1 /* ListVC.swift */,
@@ -229,6 +232,7 @@
 			files = (
 				7919959B209525DD00C127C1 /* ListVC.swift in Sources */,
 				7919D10E20955F880033A799 /* GraphVC.swift in Sources */,
+				796F335820977DE500829F24 /* DayAxisValueFormatter.swift in Sources */,
 				7919D10C20952B280033A799 /* SummaryVC.swift in Sources */,
 				79D84E8E209529DA002591A1 /* PageVC.swift in Sources */,
 				79D5C29F2095BA0E007F83F4 /* MealInfo.swift in Sources */,

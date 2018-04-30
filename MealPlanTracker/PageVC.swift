@@ -15,8 +15,8 @@ class PageVC: UIPageViewController {
     var pageControl: UIPageControl!
     var barButtonWidth: CGFloat = 44
     var barButtonHeight: CGFloat = 44
-    var manageButton: UIButton!
-    var manageButtonSize: CGSize!
+//    var manageButton: UIButton!
+//    var manageButtonSize: CGSize!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,21 +39,21 @@ class PageVC: UIPageViewController {
         super.viewDidAppear(animated)
         
         configurePageControl()
-        configureManageButton()
+//        configureManageButton()
     }
     
     //MARK:- Segues
-    @objc func segueToListVC() {
-        performSegue(withIdentifier: "ToListVC", sender: nil)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ToListVC" {
-            let destination = segue.destination as! ListVC
-            destination.mealsArray = mealsArray
-            destination.currentPage = currentPage
-        }
-    }
+//    @objc func segueToListVC() {
+//        performSegue(withIdentifier: "ToListVC", sender: nil)
+//    }
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "ToListVC" {
+//            let destination = segue.destination as! ListVC
+//            destination.mealsArray = mealsArray
+//            destination.currentPage = currentPage
+//        }
+//    }
     
     //MARK:- UI functions
     func configurePageControl() {
@@ -72,26 +72,26 @@ class PageVC: UIPageViewController {
             pageControl.currentPage = currentPage
         }
         
-        pageControl.addTarget(self, action: #selector(pageControlPressed), for: .touchUpInside)
+//        pageControl.addTarget(self, action: #selector(pageControlPressed), for: .touchUpInside)
         view.addSubview(pageControl)
     }
     
-    func configureManageButton() {
-        let manageButtonText = "Manage Meals"
-        let manageButtonFont = UIFont.systemFont(ofSize: 15)
-        let fontAttributes = [NSAttributedStringKey.font: manageButtonFont]
-        manageButtonSize = manageButtonText.size(withAttributes: fontAttributes)
-        manageButtonSize.height += 16
-        manageButtonSize.width += 16
-        
-        let safeHeight = view.frame.height - view.safeAreaInsets.bottom
-        manageButton = UIButton(frame: CGRect(x: 8, y: (safeHeight - 5) - manageButtonSize.height, width: manageButtonSize.width, height: manageButtonSize.height))
-        manageButton.setTitle(manageButtonText, for: .normal)
-        manageButton.setTitleColor(UIColor.darkText, for: .normal)
-        manageButton.titleLabel?.font = manageButtonFont
-        manageButton.addTarget(self, action: #selector(segueToListVC), for: .touchUpInside)
-        view.addSubview(manageButton)
-    }
+//    func configureManageButton() {
+//        let manageButtonText = "Manage Meals"
+//        let manageButtonFont = UIFont.systemFont(ofSize: 15)
+//        let fontAttributes = [NSAttributedStringKey.font: manageButtonFont]
+//        manageButtonSize = manageButtonText.size(withAttributes: fontAttributes)
+//        manageButtonSize.height += 16
+//        manageButtonSize.width += 16
+//        
+//        let safeHeight = view.frame.height - view.safeAreaInsets.bottom
+//        manageButton = UIButton(frame: CGRect(x: 8, y: (safeHeight - 5) - manageButtonSize.height, width: manageButtonSize.width, height: manageButtonSize.height))
+//        manageButton.setTitle(manageButtonText, for: .normal)
+//        manageButton.setTitleColor(UIColor.darkText, for: .normal)
+//        manageButton.titleLabel?.font = manageButtonFont
+//        manageButton.addTarget(self, action: #selector(segueToListVC), for: .touchUpInside)
+//        view.addSubview(manageButton)
+//    }
     
     //MARK:- Create View Controller for UIPageViewController
     func createVC(forPage page: Int) -> UIViewController { // creating a new VC
@@ -152,24 +152,24 @@ extension PageVC: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
         }
     }
     
-    @objc func pageControlPressed() {
-        if let currentViewController = self.viewControllers?[0] as? GraphVC {
-            currentPage = currentViewController.currentPage
-            if pageControl.currentPage > currentPage {
-                setViewControllers([createVC(forPage: 1)], direction: .forward, animated: true, completion: nil)
-            }
-        } else if let currentViewController = self.viewControllers?[0] as? SummaryVC {
-            currentPage = currentViewController.currentPage
-            if pageControl.currentPage < currentPage {
-                setViewControllers([createVC(forPage: 0)], direction: .reverse, animated: true, completion: nil)
-            } else if pageControl.currentPage > currentPage {
-                setViewControllers([createVC(forPage: 2)], direction: .reverse, animated: true, completion: nil)
-            }
-        } else if let currentViewController = self.viewControllers?[0] as? ListVC {
-            currentPage = currentViewController.currentPage
-            if pageControl.currentPage < currentPage {
-                setViewControllers([createVC(forPage: 1)], direction: .reverse, animated: true, completion: nil)
-            }
-        }
-    }
+//    @objc func pageControlPressed() {
+//        if let currentViewController = self.viewControllers?[0] as? GraphVC {
+//            currentPage = currentViewController.currentPage
+//            if pageControl.currentPage > currentPage {
+//                setViewControllers([createVC(forPage: 1)], direction: .forward, animated: true, completion: nil)
+//            }
+//        } else if let currentViewController = self.viewControllers?[0] as? SummaryVC {
+//            currentPage = currentViewController.currentPage
+//            if pageControl.currentPage < currentPage {
+//                setViewControllers([createVC(forPage: 0)], direction: .reverse, animated: true, completion: nil)
+//            } else if pageControl.currentPage > currentPage {
+//                setViewControllers([createVC(forPage: 2)], direction: .reverse, animated: true, completion: nil)
+//            }
+//        } else if let currentViewController = self.viewControllers?[0] as? ListVC {
+//            currentPage = currentViewController.currentPage
+//            if pageControl.currentPage < currentPage {
+//                setViewControllers([createVC(forPage: 1)], direction: .reverse, animated: true, completion: nil)
+//            }
+//        }
+//    }
 }
