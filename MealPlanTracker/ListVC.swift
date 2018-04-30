@@ -16,10 +16,14 @@ class ListVC: UIViewController {
     
     var currentPage = 2
     var mealsArray = [MealInfo]()
+    let dateFormatter = DateFormatter()
     var defaultsData = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
         
         self.tableView.backgroundColor = UIColor(red: (247/255.0), green: (230/255.0), blue: (171/255.0), alpha: 1.0)
         tableView.delegate = self
@@ -56,7 +60,19 @@ class ListVC: UIViewController {
     func sortMealsArray() {
         mealsArray.sort {
             if $0.date != $1.date {
-                return $0.date > $1.date
+                let dateArray1 = $0.date.components(separatedBy: "/")
+                let dateArray2 = $1.date.components(separatedBy: "/")
+                if dateArray1[2] == dateArray2[2] {
+                    if dateArray1[0] == dateArray2[0] {
+                        let date1 = Int(dateArray1[1])!
+                        let date2 = Int(dateArray2[1])!
+                        return date1 > date2
+                    } else {
+                        return dateArray1[0] > dateArray2[0]
+                    }
+                } else {
+                    return dateArray1[2] > dateArray2[2]
+                }
             } else {
                 var typeA: Int
                 switch $0.type {

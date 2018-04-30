@@ -93,7 +93,19 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     func sortMealsArray() {
         mealsArray.sort {
             if $0.date != $1.date {
-                return $0.date > $1.date
+                let dateArray1 = $0.date.components(separatedBy: "/")
+                let dateArray2 = $1.date.components(separatedBy: "/")
+                if dateArray1[2] == dateArray2[2] {
+                    if dateArray1[0] == dateArray2[0] {
+                        let date1 = Int(dateArray1[1])!
+                        let date2 = Int(dateArray2[1])!
+                        return date1 > date2
+                    } else {
+                        return dateArray1[0] > dateArray2[0]
+                    }
+                } else {
+                    return dateArray1[2] > dateArray2[2]
+                }
             } else {
                 var typeA: Int
                 switch $0.type {
@@ -241,5 +253,13 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
         
         let expectedDate = calculateExpectedDate(currentAverage)
         expectedEndDateLabel.text = expectedDate
+        
+        if currentAverage > recommendedAverage {
+            versusLabel.text = ">"
+        } else if currentAverage < recommendedAverage {
+            versusLabel.text = "<"
+        } else {
+            versusLabel.text = "="
+        }
     }
 }
