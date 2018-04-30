@@ -21,6 +21,9 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     var currentPage = 1
     var mealPlanAmount = 0.0
     var mealsArray = [MealInfo]()
+    var datesSet = Set<String>()
+    var mealsTotal = 0.0
+    
     let startDatePicker = UIDatePicker()
     let endDatePicker = UIDatePicker()
     let dateFormatter = DateFormatter()
@@ -176,6 +179,24 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     }
     
     //MARK:- Calculation functions
+    func calculateCurrentAverage() -> Double {
+        loadMealsArrayDefaultsData()
+        for meal in mealsArray {
+            datesSet.insert(meal.date)
+            mealsTotal = mealsTotal + meal.amount
+        }
+        let days = datesSet.count
+        print("$$$$$ number of distinct days: \(days)")
+        print("$$$$$ meals total: \(mealsTotal)")
+        let currentDailyAverage = mealsTotal / Double(days)
+        return currentDailyAverage
+    }
+    
+    func calculateRecommendedAverage() -> Double {
+        let daysLeft = calculateDateDifference()
+        let recommendedDailyAverage = mealPlanAmount / Double(daysLeft)
+        return recommendedDailyAverage
+    }
     
     func calculateDateDifference() -> Int {
         let startDate = startDatePicker.date
@@ -201,15 +222,8 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func calculateButtonPressed(_ sender: UIButton) {
-        // calculate recommended daily average
-        let daysLeft = calculateDateDifference()
-        let recommendedDailyAverage = mealPlanAmount / Double(daysLeft)
-        recommendedDailyAverageLabel.text = "$\(recommendedDailyAverage)"
+        recommendedDailyAverageLabel.text = "$\(String(format: "%.2f", ceil(calculateRecommendedAverage() * 100) / 100))"
         
-        // calculate current daily average
-        defaultsData.stringArray(forKey: "mealsArray")
-        for meal in mealsArray {
-            
-        }
+        currentDailyAverageLabel.text = "$\(String(format: "%.2f", ceil(calculateCurrentAverage() * 100) / 100))"
     }
 }
