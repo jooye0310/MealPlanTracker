@@ -19,12 +19,16 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     
     var mealInfo: MealInfo?
     let datePicker = UIDatePicker()
+    let dateFormatter = DateFormatter()
     let typePicker = UIPickerView()
     var typeArray = ["Breakfast", "Lunch", "Dinner", "Other"]
     var typePickerRow = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
         
         // setup text fields
         setupDateTextField()
@@ -39,13 +43,14 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         if let mealInfo = mealInfo { // Editing existing item
             titleLabel.text = "Edit Meal"
             dateTextField.text = mealInfo.date
+            datePicker.date = dateFormatter.date(from: mealInfo.date)!
             typeTextField.text = mealInfo.type
             amountTextField.text = String(mealInfo.amount)
         } else { // Creating new item
             titleLabel.text = "New Meal"
         }
         enableDisableSaveButton()
-        dateTextField.becomeFirstResponder()
+        //dateTextField.becomeFirstResponder()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -84,11 +89,6 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func dateDonePressed() {
-        // format date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .none
-        
         dateTextField.text = dateFormatter.string(from: datePicker.date)
         self.view.endEditing(true)
     }
