@@ -25,6 +25,8 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround() 
+        
         mealPlanTextField.delegate = self
         
         startDateTextField.delegate = self

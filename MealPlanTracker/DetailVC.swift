@@ -27,6 +27,8 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround() 
+        
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .none
         

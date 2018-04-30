@@ -21,6 +21,8 @@ class PageVC: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
+        
         delegate = self
         dataSource = self
         
@@ -104,6 +106,18 @@ class PageVC: UIPageViewController {
             let newVC = storyboard!.instantiateViewController(withIdentifier: "ListVC") as! ListVC
             return newVC
         }
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
