@@ -20,6 +20,7 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     
     var currentPage = 1
     var mealPlanAmount = 0.0
+    var mealsArray = [MealInfo]()
     let startDatePicker = UIDatePicker()
     let endDatePicker = UIDatePicker()
     let dateFormatter = DateFormatter()
@@ -75,6 +76,50 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
         } else if textField == endDateTextField {
             endDateTextField.text = defaultsData.string(forKey: "endDate") ?? ""
             endDatePicker.date = dateFormatter.date(from: endDateTextField.text!)!
+        }
+    }
+    
+    func loadMealsArrayDefaultsData() {
+        if let savedArray = defaultsData.object(forKey: "mealsArray") as? Data {
+            let decoder = JSONDecoder()
+            if let loadedArray = try? decoder.decode([MealInfo].self, from: savedArray) {
+                mealsArray = loadedArray
+            }
+        }
+        sortMealsArray()
+    }
+    
+    func sortMealsArray() {
+        mealsArray.sort {
+            if $0.date != $1.date {
+                return $0.date > $1.date
+            } else {
+                var typeA: Int
+                switch $0.type {
+                case "Breakfast":
+                    typeA = 0
+                case "Lunch":
+                    typeA = 1
+                case "Dinner":
+                    typeA = 2
+                default: // Other
+                    typeA = 3
+                }
+                
+                var typeB: Int
+                switch $1.type {
+                case "Breakfast":
+                    typeB = 0
+                case "Lunch":
+                    typeB = 1
+                case "Dinner":
+                    typeB = 2
+                default: // Other
+                    typeB = 3
+                }
+                
+                return typeA > typeB
+            }
         }
     }
     
@@ -156,8 +201,15 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func calculateButtonPressed(_ sender: UIButton) {
+        // calculate recommended daily average
         let daysLeft = calculateDateDifference()
         let recommendedDailyAverage = mealPlanAmount / Double(daysLeft)
         recommendedDailyAverageLabel.text = "$\(recommendedDailyAverage)"
+        
+        // calculate current daily average
+        defaultsData.stringArray(forKey: "mealsArray")
+        for meal in mealsArray {
+            
+        }
     }
 }
