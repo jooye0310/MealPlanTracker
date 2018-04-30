@@ -129,6 +129,15 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
         }
         return true
     }
+    
+    //MARK:- Calculation functions
+    
+    func calculateDateDifference() -> Int {
+        let startDate = startDatePicker.date
+        let endDate = endDatePicker.date
+        let dateDifference = Calendar.current.dateComponents([.day], from: startDate, to: endDate).day!
+        return dateDifference
+    }
 
     @IBAction func startDateTapped(_ sender: UITapGestureRecognizer) {
         startDatePicker.date = dateFormatter.date(from: startDateTextField.text!)!
@@ -147,5 +156,8 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func calculateButtonPressed(_ sender: UIButton) {
+        let daysLeft = calculateDateDifference()
+        let recommendedDailyAverage = mealPlanAmount / Double(daysLeft)
+        recommendedDailyAverageLabel.text = "$\(recommendedDailyAverage)"
     }
 }
