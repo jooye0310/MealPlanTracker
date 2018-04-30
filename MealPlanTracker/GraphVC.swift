@@ -14,15 +14,22 @@ class GraphVC: UIViewController {
     @IBOutlet weak var barChartView: BarChartView!
     
     var currentPage = 0
-    var months: [String]!
+    var mealsArray = [MealInfo]()
+    let dateFormatter = DateFormatter()
+    var defaultsData = UserDefaults.standard
+    
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    var dailyTotals = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        months = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-        let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0]
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        loadMealsArrayDefaultsData()
+        calculateDailyTotals()
         
-        setChart(dataPoints: months, values: unitsSold)
+        setChart(dataPoints: days, values: dailyTotals)
         
         let xAxis = barChartView.xAxis
         xAxis.labelPosition = .bottom
@@ -61,8 +68,37 @@ class GraphVC: UIViewController {
         
         let chartDataSet = BarChartDataSet(values: dataEntries, label: "Percent")
         chartDataSet.setColor(UIColor(red: (145/255.0), green: (22/255.0), blue: (57/255.0), alpha: 1.0))
-        let chartData = BarChartData(dataSet: chartDataSet) //BarChartData(xVals: months, dataSet: chartDataSet)
+        let chartData = BarChartData(dataSet: chartDataSet) //BarChartData(xVals: days, dataSet: chartDataSet)
         barChartView.data = chartData
         barChartView.chartDescription?.enabled = false
+    }
+    
+    func loadMealsArrayDefaultsData() {
+        if let savedArray = defaultsData.object(forKey: "mealsArray") as? Data {
+            let decoder = JSONDecoder()
+            if let loadedArray = try? decoder.decode([MealInfo].self, from: savedArray) {
+                mealsArray = loadedArray
+                for meal in mealsArray {
+                }
+            }
+        }
+    }
+    
+    func calculateDailyTotals() {
+        for meal in mealsArray {
+            let date = dateFormatter.date(from: meal.date)!
+            let day = date.dayOfWeek()!
+            let index = days.index(of: day)!
+            dailyTotals[index] = dailyTotals[index] + meal.amount
+        }
+    }
+}
+
+extension Date {
+    func dayOfWeek() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E"
+        return dateFormatter.string(from: self).capitalized
+        // or use capitalized(with: locale) if you want
     }
 }
