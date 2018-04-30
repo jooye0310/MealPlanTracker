@@ -1,5 +1,5 @@
 //
-//  GraphVC.swift
+//  DailyChartVC.swift
 //  MealPlanTracker
 //
 //  Created by Yehoon on 4/28/18.
@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class GraphVC: UIViewController {
+class DailyChartVC: UIViewController {
     
     @IBOutlet weak var barChartView: BarChartView!
     
@@ -41,8 +41,8 @@ class GraphVC: UIViewController {
         let leftAxisFormatter = NumberFormatter()
         leftAxisFormatter.minimumFractionDigits = 0
         leftAxisFormatter.maximumFractionDigits = 1
-        leftAxisFormatter.negativeSuffix = " %"
-        leftAxisFormatter.positiveSuffix = " %"
+        leftAxisFormatter.negativeSuffix = " $"
+        leftAxisFormatter.positiveSuffix = " $"
         
         let leftAxis = barChartView.leftAxis
         leftAxis.labelFont = UIFont(name: "Avenir", size: 12)!
@@ -66,7 +66,7 @@ class GraphVC: UIViewController {
             dataEntries.append(dataEntry)
         }
         
-        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Percent")
+        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Dollars")
         chartDataSet.setColor(UIColor(red: (145/255.0), green: (22/255.0), blue: (57/255.0), alpha: 1.0))
         let chartData = BarChartData(dataSet: chartDataSet) //BarChartData(xVals: days, dataSet: chartDataSet)
         barChartView.data = chartData
@@ -78,8 +78,6 @@ class GraphVC: UIViewController {
             let decoder = JSONDecoder()
             if let loadedArray = try? decoder.decode([MealInfo].self, from: savedArray) {
                 mealsArray = loadedArray
-                for meal in mealsArray {
-                }
             }
         }
     }

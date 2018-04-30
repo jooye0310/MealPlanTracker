@@ -96,8 +96,8 @@ class PageVC: UIPageViewController {
     //MARK:- Create View Controller for UIPageViewController
     func createVC(forPage page: Int) -> UIViewController { // creating a new VC
         switch page {
-        case 0: // GraphVC
-            let newVC = storyboard!.instantiateViewController(withIdentifier: "GraphVC") as! GraphVC
+        case 0: // DailyChartVC
+            let newVC = storyboard!.instantiateViewController(withIdentifier: "DailyChartVC") as! DailyChartVC
             return newVC
         case 1: // SummaryVC
             let newVC = storyboard!.instantiateViewController(withIdentifier: "SummaryVC") as! SummaryVC
@@ -123,7 +123,7 @@ extension UIViewController {
 
 extension PageVC: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        if (pageViewController.viewControllers?[0] as? GraphVC) != nil {
+        if (pageViewController.viewControllers?[0] as? DailyChartVC) != nil {
             return createVC(forPage: 1)
         }
         if (pageViewController.viewControllers?[0] as? SummaryVC) != nil {
@@ -143,7 +143,7 @@ extension PageVC: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if let currentViewController = pageViewController.viewControllers?[0] as? GraphVC {
+        if let currentViewController = pageViewController.viewControllers?[0] as? DailyChartVC {
             pageControl.currentPage = currentViewController.currentPage
         } else if let currentViewController = pageViewController.viewControllers?[0] as? SummaryVC {
             pageControl.currentPage = currentViewController.currentPage
@@ -153,7 +153,7 @@ extension PageVC: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     }
     
 //    @objc func pageControlPressed() {
-//        if let currentViewController = self.viewControllers?[0] as? GraphVC {
+//        if let currentViewController = self.viewControllers?[0] as? DailyChartVC {
 //            currentPage = currentViewController.currentPage
 //            if pageControl.currentPage > currentPage {
 //                setViewControllers([createVC(forPage: 1)], direction: .forward, animated: true, completion: nil)
