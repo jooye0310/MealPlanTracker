@@ -39,9 +39,15 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
         setupTextField(forTextField: startDateTextField)
         setupTextField(forTextField: endDateTextField)
         
-        loadDefaultsData(forTextField: mealPlanTextField)
+//        loadDefaultsData(forTextField: mealPlanTextField)
         loadDefaultsData(forTextField: startDateTextField)
         loadDefaultsData(forTextField: endDateTextField)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        loadDefaultsData(forTextField: mealPlanTextField)
     }
     
     //MARK:- Default data setup

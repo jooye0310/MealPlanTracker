@@ -136,6 +136,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func dateTextFieldChanged(_ sender: UITextField) {
+        dateTextField.text = dateFormatter.string(from: datePicker.date)
         enableDisableSaveButton()
     }
     
