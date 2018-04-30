@@ -142,7 +142,7 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = mealsArray[indexPath.row].date
-        cell.detailTextLabel?.text = "\(mealsArray[indexPath.row].type): $\(mealsArray[indexPath.row].amount)"
+        cell.detailTextLabel?.text = "\(mealsArray[indexPath.row].type): $\(String(format: "%.2f", ceil(mealsArray[indexPath.row].amount * 100) / 100))"
         return cell
     }
     
