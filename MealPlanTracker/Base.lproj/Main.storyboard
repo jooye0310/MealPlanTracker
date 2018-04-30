@@ -29,7 +29,7 @@
                     <view key="view" contentMode="scaleToFill" id="4GT-CK-qG5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.96859059290000005" green="0.900988593" blue="0.66982642059999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="e9N-lT-n7D"/>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="fa3-qT-nTz"/>
@@ -89,8 +89,9 @@
                                         <color key="textColor" red="0.56862745100000001" green="0.086274509799999996" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="01/15/2018" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wYn-tC-XUX">
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wYn-tC-XUX">
                                         <rect key="frame" x="156" y="0.0" width="95" height="33"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="95" id="fLW-6S-Eyj"/>
                                         </constraints>
@@ -99,6 +100,8 @@
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
                                             <action selector="dateTextFieldChanged:" destination="Wca-bF-UKw" eventType="editingDidEnd" id="ZX5-lV-gel"/>
+                                            <action selector="startDateChanged:" destination="1MZ-YT-tVh" eventType="editingDidEnd" id="sYS-sG-7kh"/>
+                                            <outletCollection property="gestureRecognizers" destination="AHY-pr-of0" appends="YES" id="5Fl-PW-ajf"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -116,8 +119,9 @@
                                         <color key="textColor" red="0.56862745100000001" green="0.086274509799999996" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="05/15/2018" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="doC-o5-Lgp">
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="doC-o5-Lgp">
                                         <rect key="frame" x="156" y="0.0" width="95" height="33"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="95" id="NAf-ho-ZsC"/>
                                         </constraints>
@@ -126,6 +130,8 @@
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
                                             <action selector="dateTextFieldChanged:" destination="Wca-bF-UKw" eventType="editingDidEnd" id="J2p-3Y-fa1"/>
+                                            <action selector="endDateChanged:" destination="1MZ-YT-tVh" eventType="editingDidEnd" id="aOz-tZ-9nz"/>
+                                            <outletCollection property="gestureRecognizers" destination="jaA-Ao-4Sd" appends="YES" id="bLb-AU-dgS"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -218,6 +224,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.96859059290000005" green="0.900988593" blue="0.66982642059999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="kPq-Or-WlJ" firstAttribute="centerY" secondItem="QGw-ev-GIT" secondAttribute="centerY" multiplier="0.15" id="b6f-2M-E4q"/>
                             <constraint firstItem="kPq-Or-WlJ" firstAttribute="centerX" secondItem="QGw-ev-GIT" secondAttribute="centerX" id="eKv-Gw-dXi"/>
@@ -235,6 +242,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z2G-qY-PbP" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTouchesRequired="0" id="AHY-pr-of0" userLabel="Start Date Tap">
+                    <connections>
+                        <action selector="startDateTapped:" destination="1MZ-YT-tVh" id="fwe-XE-xbX"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer numberOfTouchesRequired="0" id="jaA-Ao-4Sd" userLabel="End Date Tap">
+                    <connections>
+                        <action selector="endDateTapped:" destination="1MZ-YT-tVh" id="8Pg-8x-beb"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2268" y="-563.56821589205401"/>
         </scene>
@@ -250,6 +267,7 @@
                                 <rect key="frame" x="0.0" y="73" width="375" height="550"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" red="0.96859059290000005" green="0.900988593" blue="0.66982642059999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="tir-ee-7VF" detailTextLabel="4cO-pT-eSW" style="IBUITableViewCellStyleSubtitle" id="l6N-Mj-Yws">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -274,6 +292,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.96859059290000005" green="0.900988593" blue="0.66982642059999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <segue destination="Wca-bF-UKw" kind="show" identifier="EditItem" id="p9D-3L-3hW"/>
                                         </connections>
@@ -283,7 +302,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rhs-Ml-K60">
                                 <rect key="frame" x="329" y="35" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add"/>
+                                <state key="normal" title="Add">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="hZV-9N-far" kind="presentation" identifier="AddItem" id="odN-ek-9av"/>
                                 </connections>
@@ -291,7 +312,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="937-3d-P22">
                                 <rect key="frame" x="16" y="35" width="70" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Edit"/>
+                                <state key="normal" title="Edit">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="editButtonPressed:" destination="GV1-Qk-Dot" eventType="touchUpInside" id="anH-ml-2cC"/>
                                 </connections>
@@ -304,7 +327,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.96859059290000005" green="0.900988593" blue="0.66982642059999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.56862745100000001" green="0.086274509799999996" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="5hm-PN-7XV"/>
                     </view>
                     <navigationItem key="navigationItem" id="rda-2B-l9o"/>
@@ -329,7 +353,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Meal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huh-SL-kau">
                                 <rect key="frame" x="16" y="75" width="343" height="32"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.56862745100000001" green="0.086274509799999996" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter date here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8FP-pE-ZOQ">
@@ -344,7 +368,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meal Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JbW-eJ-CjK">
                                 <rect key="frame" x="16" y="114" width="343" height="32"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.56862745100000001" green="0.086274509799999996" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Breakfast" borderStyle="roundedRect" placeholder="Enter type here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UQB-IS-b7o">
@@ -379,7 +403,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meal Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jeJ-DN-CRS">
                                 <rect key="frame" x="16" y="158" width="343" height="32"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.56862745100000001" green="0.086274509799999996" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="8.99" borderStyle="roundedRect" placeholder="Enter amount here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7DQ-W5-uiA">
@@ -389,7 +413,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96859059290000005" green="0.900988593" blue="0.66982642059999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="jeJ-DN-CRS" firstAttribute="baseline" secondItem="7DQ-W5-uiA" secondAttribute="baseline" id="1Eh-1L-rb6"/>
                             <constraint firstItem="jwE-nm-rKa" firstAttribute="leading" secondItem="apa-j3-UkW" secondAttribute="trailing" constant="60" id="6wo-bu-edd"/>
