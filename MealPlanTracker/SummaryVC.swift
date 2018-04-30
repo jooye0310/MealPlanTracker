@@ -20,16 +20,46 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     
     var currentPage = 1
     let datePicker = UIDatePicker()
+    var defaultsData = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mealPlanTextField.delegate = self
-        setupTextField(forTextField: mealPlanTextField)
+        
         startDateTextField.delegate = self
-        setupTextField(forTextField: startDateTextField)
+        
         endDateTextField.delegate = self
+        
+        
+        setupTextField(forTextField: mealPlanTextField)
+        setupTextField(forTextField: startDateTextField)
         setupTextField(forTextField: endDateTextField)
+        
+        loadDefaultsData(forTextField: mealPlanTextField)
+        loadDefaultsData(forTextField: startDateTextField)
+        loadDefaultsData(forTextField: endDateTextField)
+    }
+    
+    //MARK:- Default data setup
+    func saveDefaultsData(forTextField textField: UITextField) {
+        if textField == mealPlanTextField {
+            defaultsData.set(mealPlanTextField.text, forKey: "mealPlanAmount")
+        } else if textField == startDateTextField {
+            defaultsData.set(startDateTextField.text, forKey: "startDate")
+        } else if textField == endDateTextField {
+            defaultsData.set(endDateTextField.text, forKey: "endDate")
+        }
+    }
+    
+    func loadDefaultsData(forTextField textField: UITextField) {
+        if textField == mealPlanTextField {
+            mealPlanTextField.text = defaultsData.string(forKey: "mealPlanAmount") ?? ""
+        } else if textField == startDateTextField {
+            startDateTextField.text = defaultsData.string(forKey: "startDate") ?? ""
+        } else if textField == endDateTextField {
+            endDateTextField.text = defaultsData.string(forKey: "endDate") ?? ""
+        }
     }
     
     //MARK:- Text field setup
@@ -46,10 +76,15 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
             datePicker.datePickerMode = .date
             endDateTextField.inputView = datePicker
         } else if currentTextField == mealPlanTextField {
-            doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(textDoneButtonPressed))
+            doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(mealDoneButtonPressed))
         }
         toolbar.setItems([doneButton], animated: false)
         currentTextField.inputAccessoryView = toolbar
+    }
+    
+    @objc func mealDoneButtonPressed() {
+        self.view.endEditing(true)
+        saveDefaultsData(forTextField: mealPlanTextField)
     }
     
     @objc func startDoneButtonPressed() {
@@ -59,6 +94,7 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
         dateFormatter.timeStyle = .none
         
         startDateTextField.text = dateFormatter.string(from: datePicker.date)
+        saveDefaultsData(forTextField: startDateTextField)
         self.view.endEditing(true)
     }
     
@@ -69,10 +105,7 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
         dateFormatter.timeStyle = .none
         
         endDateTextField.text = dateFormatter.string(from: datePicker.date)
-        self.view.endEditing(true)
-    }
-    
-    @objc func textDoneButtonPressed() {
+        saveDefaultsData(forTextField: endDateTextField)
         self.view.endEditing(true)
     }
     

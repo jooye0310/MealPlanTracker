@@ -65,7 +65,7 @@
                                         <color key="textColor" red="0.56862745100000001" green="0.086274509799999996" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="8888.88" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DPj-oQ-5Wb">
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DPj-oQ-5Wb">
                                         <rect key="frame" x="156" y="0.0" width="95" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="95" id="JN8-Ip-vOH"/>
@@ -89,7 +89,7 @@
                                         <color key="textColor" red="0.56862745100000001" green="0.086274509799999996" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="88/88/8888" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wYn-tC-XUX">
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="01/15/2018" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wYn-tC-XUX">
                                         <rect key="frame" x="156" y="0.0" width="95" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="95" id="fLW-6S-Eyj"/>
@@ -116,7 +116,7 @@
                                         <color key="textColor" red="0.56862745100000001" green="0.086274509799999996" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="88/88/8888" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="doC-o5-Lgp">
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="05/15/2018" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="doC-o5-Lgp">
                                         <rect key="frame" x="156" y="0.0" width="95" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="95" id="NAf-ho-ZsC"/>
