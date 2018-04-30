@@ -21,8 +21,6 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     var currentPage = 1
     var mealPlanAmount = 0.0
     var mealsArray = [MealInfo]()
-    var datesSet = Set<String>()
-    var mealsTotal = 0.0
     
     let startDatePicker = UIDatePicker()
     let endDatePicker = UIDatePicker()
@@ -181,13 +179,13 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     //MARK:- Calculation functions
     func calculateCurrentAverage() -> Double {
         loadMealsArrayDefaultsData()
+        var datesSet = Set<String>()
+        var mealsTotal = 0.0
         for meal in mealsArray {
             datesSet.insert(meal.date)
             mealsTotal = mealsTotal + meal.amount
         }
         let days = datesSet.count
-        print("$$$$$ number of distinct days: \(days)")
-        print("$$$$$ meals total: \(mealsTotal)")
         let currentDailyAverage = mealsTotal / Double(days)
         return currentDailyAverage
     }
@@ -196,6 +194,19 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
         let daysLeft = calculateDateDifference()
         let recommendedDailyAverage = mealPlanAmount / Double(daysLeft)
         return recommendedDailyAverage
+    }
+    
+    func calculateExpectedDate(_ currentAverage: Double) -> String {
+        let days = Int(round(mealPlanAmount / currentAverage))
+        var dateComponent = DateComponents()
+        let monthsToAdd = days / 30
+        let daysToAdd = days % 30
+        dateComponent.month = monthsToAdd
+        dateComponent.day = daysToAdd
+        dateComponent.year = 0
+        let expectedDate = Calendar.current.date(byAdding: dateComponent, to: startDatePicker.date)
+        let expectedDateString = dateFormatter.string(from: expectedDate!)
+        return expectedDateString
     }
     
     func calculateDateDifference() -> Int {
@@ -222,8 +233,13 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func calculateButtonPressed(_ sender: UIButton) {
-        recommendedDailyAverageLabel.text = "$\(String(format: "%.2f", ceil(calculateRecommendedAverage() * 100) / 100))"
+        let recommendedAverage = calculateRecommendedAverage()
+        recommendedDailyAverageLabel.text = "$\(String(format: "%.2f", ceil(recommendedAverage * 100) / 100))"
         
-        currentDailyAverageLabel.text = "$\(String(format: "%.2f", ceil(calculateCurrentAverage() * 100) / 100))"
+        let currentAverage = calculateCurrentAverage()
+        currentDailyAverageLabel.text = "$\(String(format: "%.2f", ceil(currentAverage * 100) / 100))"
+        
+        let expectedDate = calculateExpectedDate(currentAverage)
+        expectedEndDateLabel.text = expectedDate
     }
 }
