@@ -27,7 +27,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
         
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .none
@@ -47,6 +47,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
             dateTextField.text = mealInfo.date
             datePicker.date = dateFormatter.date(from: mealInfo.date)!
             typeTextField.text = mealInfo.type
+            typePicker.selectRow(typeArray.index(of: mealInfo.type)!, inComponent: 0, animated: false)
             amountTextField.text = String(mealInfo.amount)
         } else { // Creating new item
             titleLabel.text = "New Meal"
@@ -110,7 +111,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         let digitAfterDecimal = 2
         let computationString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         let arrayOfSubStrings = computationString.components(separatedBy: ".")
-        if arrayOfSubStrings.count == 1 && computationString.count > digitBeforeDecimal {//
+        if arrayOfSubStrings.count == 1 && computationString.count > digitBeforeDecimal {
             return false
         } else if arrayOfSubStrings.count == 2 {
             let stringPostDecimal = arrayOfSubStrings[1]
