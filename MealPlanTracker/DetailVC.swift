@@ -18,16 +18,20 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     
     var mealInfo: MealInfo?
+    var mealPlanAmount = 0.0
     let datePicker = UIDatePicker()
     let dateFormatter = DateFormatter()
     let typePicker = UIPickerView()
     var typeArray = ["Breakfast", "Lunch", "Dinner", "Other"]
     var typePickerRow = 0
+    var defaultsData = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
+        
+        mealPlanAmount = defaultsData.double(forKey: "mealPlanAmount")
         
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .none
@@ -58,6 +62,8 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "UnwindFromSave" {
+            let mealPlanAfter = mealPlanAmount - Double(amountTextField.text!)!
+            defaultsData.set(mealPlanAfter, forKey: "mealPlanAmount")
             mealInfo = MealInfo(date: dateTextField.text!, type: typeTextField.text!, amount: Double(amountTextField.text!)!)
         }
     }

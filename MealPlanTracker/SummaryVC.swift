@@ -19,6 +19,7 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var expectedEndDateLabel: UILabel!
     
     var currentPage = 1
+    var mealPlanAmount = 0.0
     let datePicker = UIDatePicker()
     var defaultsData = UserDefaults.standard
     
@@ -46,7 +47,8 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     //MARK:- Default data setup
     func saveDefaultsData(forTextField textField: UITextField) {
         if textField == mealPlanTextField {
-            defaultsData.set(mealPlanTextField.text, forKey: "mealPlanAmount")
+            mealPlanAmount = Double(mealPlanTextField.text!)!
+            defaultsData.set(mealPlanAmount, forKey: "mealPlanAmount")
         } else if textField == startDateTextField {
             defaultsData.set(startDateTextField.text, forKey: "startDate")
         } else if textField == endDateTextField {
@@ -56,13 +58,35 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     
     func loadDefaultsData(forTextField textField: UITextField) {
         if textField == mealPlanTextField {
-            mealPlanTextField.text = defaultsData.string(forKey: "mealPlanAmount") ?? ""
+            mealPlanAmount = defaultsData.double(forKey: "mealPlanAmount")
+            mealPlanTextField.text = String(format: "%.2f", ceil(mealPlanAmount * 100) / 100)
         } else if textField == startDateTextField {
             startDateTextField.text = defaultsData.string(forKey: "startDate") ?? ""
         } else if textField == endDateTextField {
             endDateTextField.text = defaultsData.string(forKey: "endDate") ?? ""
         }
     }
+    
+//    func passData() {
+//        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let newViewController = storyBoard.instantiateViewController(withIdentifier: "ListVC") as! ListVC
+//
+//        newViewController.mealPlanAmount = mealPlanAmount
+//
+//        self.present(newViewController, animated: true, completion: nil)
+//    }
+    
+//    func presentDestinationViewController() {
+//        let destinationViewController = ListVC(nibName: "ListVC", bundle: nil)
+//        destinationViewController.mealPlanAmount = mealPlanAmount
+//        present(destinationViewController, animated: true, completion: nil)
+//    }
+    
+//    func passDataToController() {
+//        let destination = ListVC(nibName: "ListVC", bundle: Bundle.main)
+//        destination.mealPlanAmount = self.mealPlanAmount
+//        self.passDataToController(destination, sender: self)
+//    }
     
     //MARK:- Text field setup
     func setupTextField(forTextField currentTextField: UITextField) {
@@ -86,6 +110,7 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     
     @objc func mealDoneButtonPressed() {
         self.view.endEditing(true)
+        mealPlanAmount = Double(mealPlanTextField.text!)!
         saveDefaultsData(forTextField: mealPlanTextField)
     }
     
