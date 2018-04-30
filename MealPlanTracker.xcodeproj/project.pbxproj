@@ -14,10 +14,50 @@
 		7919959B209525DD00C127C1 /* ListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919959A209525DD00C127C1 /* ListVC.swift */; };
 		7919D10C20952B280033A799 /* SummaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919D10B20952B280033A799 /* SummaryVC.swift */; };
 		7919D10E20955F880033A799 /* GraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7919D10D20955F880033A799 /* GraphVC.swift */; };
+		796F334A20976B3F00829F24 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796F334720976B0800829F24 /* Charts.framework */; };
+		796F334B20976B3F00829F24 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 796F334720976B0800829F24 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		79D5C29F2095BA0E007F83F4 /* MealInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5C29E2095BA0E007F83F4 /* MealInfo.swift */; };
 		79D84E8C209526C9002591A1 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D84E8B209526C9002591A1 /* DetailVC.swift */; };
 		79D84E8E209529DA002591A1 /* PageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D84E8D209529DA002591A1 /* PageVC.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		796F334620976B0800829F24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 796F334120976B0800829F24 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
+			remoteInfo = Charts;
+		};
+		796F334820976B0800829F24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 796F334120976B0800829F24 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
+			remoteInfo = ChartsTests;
+		};
+		796F334C20976B3F00829F24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 796F334120976B0800829F24 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		796F334E20976B3F00829F24 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				796F334B20976B3F00829F24 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		791995832095255600C127C1 /* MealPlanTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MealPlanTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +69,7 @@
 		7919959A209525DD00C127C1 /* ListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVC.swift; sourceTree = "<group>"; };
 		7919D10B20952B280033A799 /* SummaryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryVC.swift; sourceTree = "<group>"; };
 		7919D10D20955F880033A799 /* GraphVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphVC.swift; sourceTree = "<group>"; };
+		796F334120976B0800829F24 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = SOURCE_ROOT; };
 		79D5C29E2095BA0E007F83F4 /* MealInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealInfo.swift; sourceTree = "<group>"; };
 		79D84E8B209526C9002591A1 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		79D84E8D209529DA002591A1 /* PageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageVC.swift; sourceTree = "<group>"; };
@@ -39,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				796F334A20976B3F00829F24 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +92,7 @@
 			children = (
 				791995852095255600C127C1 /* MealPlanTracker */,
 				791995842095255600C127C1 /* Products */,
+				796F334120976B0800829F24 /* Charts.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +122,15 @@
 			path = MealPlanTracker;
 			sourceTree = "<group>";
 		};
+		796F334220976B0800829F24 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				796F334720976B0800829F24 /* Charts.framework */,
+				796F334920976B0800829F24 /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -89,10 +141,12 @@
 				7919957F2095255600C127C1 /* Sources */,
 				791995802095255600C127C1 /* Frameworks */,
 				791995812095255600C127C1 /* Resources */,
+				796F334E20976B3F00829F24 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				796F334D20976B3F00829F24 /* PBXTargetDependency */,
 			);
 			name = MealPlanTracker;
 			productName = MealPlanTracker;
@@ -125,12 +179,35 @@
 			mainGroup = 7919957A2095255600C127C1;
 			productRefGroup = 791995842095255600C127C1 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 796F334220976B0800829F24 /* Products */;
+					ProjectRef = 796F334120976B0800829F24 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				791995822095255600C127C1 /* MealPlanTracker */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		796F334720976B0800829F24 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = 796F334620976B0800829F24 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		796F334920976B0800829F24 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = 796F334820976B0800829F24 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		791995812095255600C127C1 /* Resources */ = {
@@ -161,6 +238,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		796F334D20976B3F00829F24 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = 796F334C20976B3F00829F24 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7919958A2095255700C127C1 /* Main.storyboard */ = {
@@ -299,6 +384,7 @@
 		791995962095255800C127C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8577ST5UL9;
@@ -317,6 +403,7 @@
 		791995972095255800C127C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8577ST5UL9;

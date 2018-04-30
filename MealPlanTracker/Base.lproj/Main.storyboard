@@ -29,10 +29,26 @@
                     <view key="view" contentMode="scaleToFill" id="4GT-CK-qG5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PHq-QH-lUK" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" red="0.96862745100000003" green="0.90196078430000004" blue="0.6705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="0.96859059290000005" green="0.900988593" blue="0.66982642059999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="PHq-QH-lUK" firstAttribute="top" secondItem="e9N-lT-n7D" secondAttribute="top" id="4g6-ZW-eMR"/>
+                            <constraint firstItem="e9N-lT-n7D" firstAttribute="trailing" secondItem="PHq-QH-lUK" secondAttribute="trailing" id="5c0-2R-N15"/>
+                            <constraint firstItem="PHq-QH-lUK" firstAttribute="leading" secondItem="e9N-lT-n7D" secondAttribute="leading" id="68f-xh-7wd"/>
+                            <constraint firstItem="e9N-lT-n7D" firstAttribute="bottom" secondItem="PHq-QH-lUK" secondAttribute="bottom" id="LVr-mo-lB3"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="e9N-lT-n7D"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Graph" id="fa3-qT-nTz"/>
+                    <connections>
+                        <outlet property="barChartView" destination="PHq-QH-lUK" id="Fg8-T6-Trf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u2I-l5-b26" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Charts
 
 class GraphVC: UIViewController {
+    
+    @IBOutlet weak var barChartView: BarChartView!
     
     var currentPage = 0
     
