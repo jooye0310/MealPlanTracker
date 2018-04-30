@@ -154,11 +154,4 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
             saveDefaultsData()
         }
     }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) { // Move case
-        let itemToMove = mealsArray[sourceIndexPath.row]
-        mealsArray.remove(at: sourceIndexPath.row)
-        mealsArray.insert(itemToMove, at: destinationIndexPath.row)
-        saveDefaultsData()
-    }
 }

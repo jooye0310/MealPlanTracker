@@ -14,11 +14,13 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var typeTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var detailTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
     var mealInfo: MealInfo?
     var mealPlanAmount = 0.0
+    var initialAmount = 0.0
     let datePicker = UIDatePicker()
     let dateFormatter = DateFormatter()
     let typePicker = UIPickerView()
@@ -53,6 +55,8 @@ class DetailVC: UIViewController, UITextFieldDelegate {
             typeTextField.text = mealInfo.type
             typePicker.selectRow(typeArray.index(of: mealInfo.type)!, inComponent: 0, animated: false)
             amountTextField.text = String(mealInfo.amount)
+            initialAmount = mealInfo.amount
+            detailTextView.text = mealInfo.detail
         } else { // Creating new item
             titleLabel.text = "New Meal"
         }
@@ -62,9 +66,9 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "UnwindFromSave" {
-            let mealPlanAfter = mealPlanAmount - Double(amountTextField.text!)!
+            let mealPlanAfter = mealPlanAmount + initialAmount - Double(amountTextField.text!)!
             defaultsData.set(mealPlanAfter, forKey: "mealPlanAmount")
-            mealInfo = MealInfo(date: dateTextField.text!, type: typeTextField.text!, amount: Double(amountTextField.text!)!)
+            mealInfo = MealInfo(date: dateTextField.text!, type: typeTextField.text!, amount: Double(amountTextField.text!)!, detail: detailTextView.text!)
         }
     }
     
