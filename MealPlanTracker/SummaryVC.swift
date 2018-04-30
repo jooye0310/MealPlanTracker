@@ -19,6 +19,7 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var expectedEndDateLabel: UILabel!
     
     var currentPage = 1
+    let datePicker = UIDatePicker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +36,43 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     func setupTextField(forTextField currentTextField: UITextField) {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonPressed))
+        var doneButton = UIBarButtonItem()
+        if currentTextField == startDateTextField {
+            doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(startDoneButtonPressed))
+            datePicker.datePickerMode = .date
+            startDateTextField.inputView = datePicker
+        } else if currentTextField == endDateTextField {
+            doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(endDoneButtonPressed))
+            datePicker.datePickerMode = .date
+            endDateTextField.inputView = datePicker
+        } else if currentTextField == mealPlanTextField {
+            doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(textDoneButtonPressed))
+        }
         toolbar.setItems([doneButton], animated: false)
         currentTextField.inputAccessoryView = toolbar
     }
     
-    @objc func doneButtonPressed() {
+    @objc func startDoneButtonPressed() {
+        // format date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        
+        startDateTextField.text = dateFormatter.string(from: datePicker.date)
+        self.view.endEditing(true)
+    }
+    
+    @objc func endDoneButtonPressed() {
+        // format date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        
+        endDateTextField.text = dateFormatter.string(from: datePicker.date)
+        self.view.endEditing(true)
+    }
+    
+    @objc func textDoneButtonPressed() {
         self.view.endEditing(true)
     }
     
