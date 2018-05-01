@@ -48,6 +48,7 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
         startDatePicker.date = Date()
         startDateTextField.text = dateFormatter.string(from: startDatePicker.date)
         loadDefaultsData(forTextField: endDateTextField)
+        endDateTextField.text = dateFormatter.string(from: endDatePicker.date)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -76,7 +77,11 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
 //            startDateTextField.text = defaultsData.string(forKey: "startDate") ?? ""
         } else if textField == endDateTextField {
             endDateTextField.text = defaultsData.string(forKey: "endDate") ?? ""
-            endDatePicker.date = dateFormatter.date(from: endDateTextField.text!)!
+            if endDateTextField.text != "" {
+                endDatePicker.date = dateFormatter.date(from: endDateTextField.text!)!
+            } else {
+                endDatePicker.date = dateFormatter.date(from: "5/15/2018")!
+            }
         }
     }
     
@@ -193,13 +198,17 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
         loadMealsArrayDefaultsData()
         var datesSet = Set<String>()
         var mealsTotal = 0.0
-        for meal in mealsArray {
-            datesSet.insert(meal.date)
-            mealsTotal = mealsTotal + meal.amount
+        if mealsArray.isEmpty {
+            return 0.0
+        } else {
+            for meal in mealsArray {
+                datesSet.insert(meal.date)
+                mealsTotal = mealsTotal + meal.amount
+            }
+            let days = datesSet.count
+            let currentDailyAverage = mealsTotal / Double(days)
+            return currentDailyAverage
         }
-        let days = datesSet.count
-        let currentDailyAverage = mealsTotal / Double(days)
-        return currentDailyAverage
     }
     
     func calculateRecommendedAverage() -> Double {
@@ -209,6 +218,10 @@ class SummaryVC: UIViewController, UITextFieldDelegate {
     }
     
     func calculateExpectedDate(_ currentAverage: Double) -> String {
+        if mealPlanAmount == 0.0 {
+            let date = Date()
+            return dateFormatter.string(from: date)
+        }
         let days = Int(round(mealPlanAmount / currentAverage))
         var dateComponent = DateComponents()
         let monthsToAdd = days / 30

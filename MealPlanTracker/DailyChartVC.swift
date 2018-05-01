@@ -28,7 +28,6 @@ class DailyChartVC: UIViewController {
         dateFormatter.timeStyle = .none
         loadMealsArrayDefaultsData()
         calculateDailyTotals()
-        
         setChart(dataPoints: days, values: dailyTotals)
         
         let xAxis = barChartView.xAxis
@@ -54,6 +53,15 @@ class DailyChartVC: UIViewController {
         
         let rightAxis = barChartView.rightAxis
         rightAxis.enabled = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        loadMealsArrayDefaultsData()
+        dailyTotals = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        calculateDailyTotals()
+        setChart(dataPoints: days, values: dailyTotals)
     }
     
     func setChart(dataPoints: [String], values: [Double]) {
